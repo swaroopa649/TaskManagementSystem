@@ -1,0 +1,25 @@
+.avatar-circle-sm {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #4099ff;
+  color: #fff;
+  font-weight: 600;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-label {
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.font-weight-500 {
+  font-weight: 500;
+}
+
+.alert-light {
+  background: #f8f9fa;
+}

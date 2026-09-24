@@ -1,0 +1,27 @@
+.avatar-circle-sm {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #4099ff;
+  color: #fff;
+  font-weight: 600;
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-header h5 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.btn-group .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fst-italic {
+  font-style: italic;
+}

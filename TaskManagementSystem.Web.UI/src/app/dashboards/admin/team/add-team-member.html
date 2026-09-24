@@ -1,0 +1,119 @@
+<!-- [ breadcrumb ] start -->
+<div class="page-header">
+  <div class="page-block">
+    <div class="row align-items-center">
+      <div class="col-md-12">
+        <div class="page-header-title">
+          <h5 class="m-b-10">Add Team Member</h5>
+        </div>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#!"><i class="feather icon-home"></i></a></li>
+          <li class="breadcrumb-item"><a href="#!">Teams</a></li>
+          <li class="breadcrumb-item"><a href="#!">Add Member</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- [ breadcrumb ] end -->
+
+<div class="row">
+  <div class="col-md-8 col-lg-6 mx-auto">
+
+    <!-- Team info -->
+    <div class="card" *ngIf="team">
+      <div class="card-body">
+        <h5 class="mb-1">{{ team.name }}</h5>
+        <p class="text-muted mb-1" *ngIf="team.description">{{ team.description }}</p>
+        <small class="text-muted">
+          Manager: <strong>{{ team.managerName || '—' }}</strong>
+          &nbsp;•&nbsp;
+          Members: {{ team.members?.length || 0 }}
+        </small>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="card">
+      <div class="card-header">
+        <h5>Add a member to this team</h5>
+      </div>
+      <div class="card-body">
+
+        <form #memberForm="ngForm" (ngSubmit)="onSubmit(memberForm)" novalidate>
+
+          <!-- Search box -->
+          <div class="form-group mb-2">
+            <label class="form-label">Search User</label>
+            <input type="text"
+                   class="form-control"
+                   placeholder="Type a name or email…"
+                   [(ngModel)]="searchTerm"
+                   name="searchTerm">
+          </div>
+
+          <!-- User select -->
+          <div class="form-group mb-3">
+            <label class="form-label">Select User <span class="text-danger">*</span></label>
+
+            <div *ngIf="loadingUsers" class="text-muted small">Loading users…</div>
+
+            <select name="userId"
+                    class="form-control"
+                    required
+                    [(ngModel)]="model.userId"
+                    #userId="ngModel"
+                    [disabled]="loadingUsers">
+              <option [ngValue]="0" disabled>Select a user…</option>
+              <option *ngFor="let u of filteredUsers" [ngValue]="u.id">
+                {{ fullName(u) }} — {{ u.email }}
+                <span *ngIf="u.roleName"> ({{ u.roleName }})</span>
+              </option>
+            </select>
+
+            <div *ngIf="!loadingUsers && filteredUsers.length === 0"
+                 class="text-warning small mt-1">
+              No available users to add.
+            </div>
+
+            <div *ngIf="userId.invalid && (userId.dirty || userId.touched)"
+                 class="text-danger small mt-1">
+              Please select a user.
+            </div>
+          </div>
+
+          <!-- Selected user preview -->
+          <div class="alert alert-light border" *ngIf="model.userId">
+            <ng-container *ngFor="let u of availableUsers">
+              <div *ngIf="u.id === model.userId" class="d-flex align-items-center">
+                <div class="avatar-circle-sm mr-2">{{ initials(u) }}</div>
+                <div>
+                  <div class="font-weight-500">{{ fullName(u) }}</div>
+                  <small class="text-muted">{{ u.email }}</small>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+          <!-- Actions -->
+          <div class="d-flex justify-content-end">
+            <button type="button"
+                    class="btn btn-secondary mr-2"
+                    (click)="cancel()"
+                    [disabled]="isLoading">
+              Cancel            </button>
+            <button type="submit"
+                    class="btn btn-primary"
+                    [disabled]="memberForm.invalid || !model.userId || isLoading">
+              <span *ngIf="!isLoading">Add Member</span>
+              <span *ngIf="isLoading">Adding…</span>
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</div>

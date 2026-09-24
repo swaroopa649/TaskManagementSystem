@@ -47,6 +47,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#!"
+             [class.active]="isOnDashboard()"
              (click)="goToDashboard(); $event.preventDefault();">
             <span class="pcoded-micon"><i class="feather icon-home"></i></span>
             <span class="pcoded-mtext">Dashboard</span>
@@ -54,7 +55,7 @@
         </li>
 
         <!-- ========================================================
-             TASK MANAGEMENT  — visible to everyone
+             TASK MANAGEMENT
              ======================================================== -->
         <li class="nav-item pcoded-menu-caption">
           <label>Task Management</label>
@@ -68,8 +69,8 @@
           </a>
         </li>
 
-        <!-- Admin + Manager: Team Tasks -->
-        <li class="nav-item" *ngIf="account.isAdmin() || account.isManager()">
+        <!-- Manager only: Team Tasks -->
+        <li class="nav-item" *ngIf="account.isManager()">
           <a class="nav-link" routerLink="/manager/tasks" routerLinkActive="active">
             <span class="pcoded-micon"><i class="feather icon-users"></i></span>
             <span class="pcoded-mtext">Team Tasks</span>
@@ -84,8 +85,8 @@
           </a>
         </li>
 
-        <!-- Admin + Manager + User: My Tasks -->
-        <li class="nav-item">
+        <!-- User only: My Tasks -->
+        <li class="nav-item" *ngIf="account.isUser()">
           <a class="nav-link" routerLink="/user/tasks" routerLinkActive="active">
             <span class="pcoded-micon"><i class="feather icon-check-square"></i></span>
             <span class="pcoded-mtext">My Tasks</span>
@@ -109,7 +110,7 @@
         </li>
 
         <!-- ========================================================
-             TEAM MANAGEMENT  — Admin + Manager only
+             TEAM MANAGEMENT — Admin + Manager only
              ======================================================== -->
         <ng-container *ngIf="account.isAdmin() || account.isManager()">
 
@@ -117,13 +118,22 @@
             <label>Team Management</label>
           </li>
 
-          <!-- Teams (parent) — Admin sees All + Create; Manager sees My Team -->
-          <li class="nav-item pcoded-hasmenu">
-            <a href="#!" class="nav-link">
+          <!--
+            Teams (parent)
+            - Admin: click navigates to /admin/teams AND expands
+            - Manager: click only expands (no All Teams page for them)
+          -->
+          <li class="nav-item pcoded-hasmenu"
+              [class.active]="isOpen('teams')"
+              [class.pcoded-trigger]="isOpen('teams')">
+            <a class="nav-link"
+               [routerLink]="account.isAdmin() ? '/admin/teams' : null"
+               routerLinkActive="active"
+               (click)="toggleMenu('teams', $event)">
               <span class="pcoded-micon"><i class="feather icon-grid"></i></span>
               <span class="pcoded-mtext">Teams</span>
             </a>
-            <ul class="pcoded-submenu">
+            <ul class="pcoded-submenu" [class.d-block]="isOpen('teams')">
               <li *ngIf="account.isAdmin()">
                 <a routerLink="/admin/teams" routerLinkActive="active">All Teams</a>
               </li>
@@ -144,8 +154,8 @@
             </a>
           </li>
 
-          <!-- Admin + Manager: Assign Task -->
-          <li class="nav-item">
+          <!-- Manager only: Assign Task -->
+          <li class="nav-item" *ngIf="account.isManager()">
             <a class="nav-link" routerLink="/manager/assign" routerLinkActive="active">
               <span class="pcoded-micon"><i class="feather icon-send"></i></span>
               <span class="pcoded-mtext">Assign Task</span>
@@ -155,7 +165,7 @@
         </ng-container>
 
         <!-- ========================================================
-             ADMINISTRATION  — Admin only
+             ADMINISTRATION — Admin only
              ======================================================== -->
         <ng-container *ngIf="account.isAdmin()">
 
@@ -163,19 +173,28 @@
             <label>Administration</label>
           </li>
 
-          <!-- Users (parent) -->
-          <li class="nav-item pcoded-hasmenu">
-            <a href="#!" class="nav-link">
+          <!--
+            Users (parent)
+            - Click navigates to /admin/users AND expands submenu
+          -->
+          <li class="nav-item pcoded-hasmenu"
+              [class.active]="isOpen('users')"
+              [class.pcoded-trigger]="isOpen('users')">
+            <a class="nav-link"
+               routerLink="/admin/users"
+               routerLinkActive="active"
+               (click)="toggleMenu('users', $event)">
               <span class="pcoded-micon"><i class="feather icon-user"></i></span>
               <span class="pcoded-mtext">Users</span>
             </a>
-            <ul class="pcoded-submenu">
+            <ul class="pcoded-submenu" [class.d-block]="isOpen('users')">
               <li><a routerLink="/admin/users" routerLinkActive="active">All Users</a></li>
               <li><a routerLink="/admin/users/create" routerLinkActive="active">Add User</a></li>
               <li><a routerLink="/admin/roles" routerLinkActive="active">Roles</a></li>
             </ul>
           </li>
 
+          <!-- Reports -->
           <li class="nav-item">
             <a class="nav-link" routerLink="/admin/reports" routerLinkActive="active">
               <span class="pcoded-micon"><i class="feather icon-bar-chart-2"></i></span>
@@ -183,6 +202,7 @@
             </a>
           </li>
 
+          <!-- System Settings -->
           <li class="nav-item">
             <a class="nav-link" routerLink="/admin/settings" routerLinkActive="active">
               <span class="pcoded-micon"><i class="feather icon-settings"></i></span>
@@ -193,7 +213,7 @@
         </ng-container>
 
         <!-- ========================================================
-             COLLABORATION  — everyone
+             COLLABORATION — everyone
              ======================================================== -->
         <li class="nav-item pcoded-menu-caption">
           <label>Collaboration</label>
@@ -215,7 +235,7 @@
         </li>
 
         <!-- ========================================================
-             ACCOUNT  — everyone
+             ACCOUNT — everyone
              ======================================================== -->
         <li class="nav-item pcoded-menu-caption">
           <label>Account</label>
