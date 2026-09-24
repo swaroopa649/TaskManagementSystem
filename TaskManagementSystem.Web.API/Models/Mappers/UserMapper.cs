@@ -23,7 +23,26 @@ namespace TaskManagementSystem.Web.API.Models.Mappers
                 ModifiedOn = user.ModifiedOn
             };
         }
-
+        public static UserAuthenticationDTO ToAuthDto(this User user)
+        {
+            return new UserAuthenticationDTO
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Phone = user.Phone,
+                PasswordHash = user.PasswordHash,
+                PasswordSalt = user.PasswordSalt,
+                RoleId = user.RoleId,
+                RoleName = user.Role?.Name,
+                RoleCode = user.Role?.Code,
+                LastLogin = user.LastLogin,
+                IsActive = user.IsActive,
+                CreatedOn = user.CreatedOn,
+                ModifiedOn = user.ModifiedOn
+            };
+        }
         public static User ToEntity(this CreateUserDto dto, string passwordHash, string passwordSalt)
         {
             return new User

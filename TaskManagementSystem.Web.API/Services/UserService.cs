@@ -9,9 +9,7 @@ namespace TaskManagementSystem.Web.API.Services
         private readonly IUserRepository _userRepository;
         private readonly PasswordService _passwordService;
 
-        public UserService(
-            IUserRepository userRepository,
-            PasswordService passwordService)
+        public UserService(IUserRepository userRepository, PasswordService passwordService)
         {
             _userRepository = userRepository;
             _passwordService = passwordService;
@@ -157,6 +155,14 @@ namespace TaskManagementSystem.Web.API.Services
             var users = await _userRepository.GetAllAsync();
 
             return users.Any() ? users.Max(x => x.Id) + 1 : 1;
+        }
+
+        public async Task<UserAuthenticationDTO> GetByUserNameAsync(string userName)
+        {
+            var user = await _userRepository.GetByUserName(userName);
+            if (user != null)
+                return user.ToAuthDto();
+            return null;
         }
     }
 }

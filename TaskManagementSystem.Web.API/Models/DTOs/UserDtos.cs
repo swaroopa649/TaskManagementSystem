@@ -1,4 +1,6 @@
-﻿namespace TaskManagementSystem.Web.API.Models.DTOs
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+
+namespace TaskManagementSystem.Web.API.Models.DTOs
 {
     public class UserResponseDto
     {
@@ -57,5 +59,11 @@
         public long? RoleId { get; set; }
 
         public bool IsActive { get; set; }
+    }
+
+    public class UserAuthenticationDTO : UserResponseDto
+    {
+        public string PasswordHash { get; set; }
+        public string PasswordSalt { get; set; }
     }
 }
