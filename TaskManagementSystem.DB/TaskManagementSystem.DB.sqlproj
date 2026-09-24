@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Role.sql" />
+    <Build Include="Tables\User.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post-Deployment\Script.PostDeployment.sql" />
