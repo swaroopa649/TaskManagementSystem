@@ -1,106 +1,254 @@
-<!-- [ navigation menu ] start -->
-	<nav class="pcoded-navbar  ">
-		<div class="navbar-wrapper  ">
-			<div class="navbar-content scroll-div " >
-				
-				<div class="">
-					<div class="main-menu-header">
-						<img class="img-radius" src="assets/images/user/avatar-2.jpg" alt="User-Profile-Image">
-						<div class="user-details">
-							<span>John Doe</span>
-							<div id="more-details">UX Designer<i class="fa fa-chevron-down m-l-5"></i></div>
-						</div>
-					</div>
-					<div class="collapse" id="nav-user-link">
-						<ul class="list-unstyled">
-							<li class="list-group-item"><a href="user-profile.html"><i class="feather icon-user m-r-5"></i>View Profile</a></li>
-							<li class="list-group-item"><a href="#!"><i class="feather icon-settings m-r-5"></i>Settings</a></li>
-							<li class="list-group-item"><a href="auth-normal-sign-in.html"><i class="feather icon-log-out m-r-5"></i>Logout</a></li>
-						</ul>
-					</div>
-				</div>
-				
-				<ul class="nav pcoded-inner-navbar ">
-					<li class="nav-item pcoded-menu-caption">
-						<label>Navigation</label>
-					</li>
-					<li class="nav-item">
-					    <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
-					</li>
-					<li class="nav-item pcoded-hasmenu">
-					    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-layout"></i></span><span class="pcoded-mtext">Page layouts</span></a>
-					    <ul class="pcoded-submenu">
-					        <li><a href="layout-vertical.html" target="_blank">Vertical</a></li>
-					        <li><a href="layout-horizontal.html" target="_blank">Horizontal</a></li>
-					    </ul>
-					</li>
-					<li class="nav-item pcoded-menu-caption">
-						<label>UI Element</label>
-					</li>
-					<li class="nav-item pcoded-hasmenu">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Basic</span></a>
-						<ul class="pcoded-submenu">
-							<li><a href="bc_alert.html">Alert</a></li>
-							<li><a href="bc_button.html">Button</a></li>
-							<li><a href="bc_badges.html">Badges</a></li>
-							<li><a href="bc_breadcrumb-pagination.html">Breadcrumb & paggination</a></li>
-							<li><a href="bc_card.html">Cards</a></li>
-							<li><a href="bc_collapse.html">Collapse</a></li>
-							<li><a href="bc_carousel.html">Carousel</a></li>
-							<li><a href="bc_grid.html">Grid system</a></li>
-							<li><a href="bc_progress.html">Progress</a></li>
-							<li><a href="bc_modal.html">Modal</a></li>
-							<li><a href="bc_spinner.html">Spinner</a></li>
-							<li><a href="bc_tabs.html">Tabs & pills</a></li>
-							<li><a href="bc_typography.html">Typography</a></li>
-							<li><a href="bc_tooltip-popover.html">Tooltip & popovers</a></li>
-							<li><a href="bc_toasts.html">Toasts</a></li>
-							<li><a href="bc_extra.html">Other</a></li>
-						</ul>
-					</li>
-					<li class="nav-item pcoded-menu-caption">
-					    <label>Forms &amp; table</label>
-					</li>
-					<li class="nav-item">
-					    <a href="form_elements.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">Forms</span></a>
-					</li>
-					<li class="nav-item">
-					    <a href="tbl_bootstrap.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-align-justify"></i></span><span class="pcoded-mtext">Bootstrap table</span></a>
-					</li>
-					<li class="nav-item pcoded-menu-caption">
-						<label>Chart & Maps</label>
-					</li>
-					<li class="nav-item">
-					    <a href="chart-apex.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Chart</span></a>
-					</li>
-					<li class="nav-item">
-					    <a href="map-google.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-map"></i></span><span class="pcoded-mtext">Maps</span></a>
-					</li>
-					<li class="nav-item pcoded-menu-caption">
-						<label>Pages</label>
-					</li>
-					<li class="nav-item pcoded-hasmenu">
-					    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-lock"></i></span><span class="pcoded-mtext">Authentication</span></a>
-					    <ul class="pcoded-submenu">
-					        <li><a href="auth-signup.html" target="_blank">Sign up</a></li>
-					        <li><a href="auth-signin.html" target="_blank">Sign in</a></li>
-					    </ul>
-					</li>
-					<li class="nav-item"><a href="sample-page.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-sidebar"></i></span><span class="pcoded-mtext">Sample page</span></a></li>
+<nav class="pcoded-navbar">
+  <div class="navbar-wrapper">
+    <div class="navbar-content scroll-div">
 
-				</ul>
-				
-				<div class="card text-center">
-					<div class="card-block">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						<i class="feather icon-sunset f-40"></i>
-						<h6 class="mt-3">Upgrade To Pro</h6>
-						<p>Please contact us on our email for need any support</p>
-						<a href="https://1.envato.market/PgJNQ" target="_blank" class="btn btn-primary btn-sm text-white m-0">Upgrade</a>
-					</div>
-				</div>
-				
-			</div>
-		</div>
-	</nav>
-	<!-- [ navigation menu ] end -->
+      <!-- ============================================================
+           USER HEADER
+           ============================================================ -->
+      <div>
+        <div class="main-menu-header">
+          <div class="avatar-circle" [style.background]="avatarColor">
+            {{ userInitials }}
+          </div>
+          <div class="user-details">
+            <span>{{ userName }}</span>
+            <div id="more-details">
+              {{ userRole }}<i class="fa fa-chevron-down m-l-5"></i>
+            </div>
+          </div>
+        </div>
+        <div class="collapse" id="nav-user-link">
+          <ul class="list-unstyled">
+            <li class="list-group-item">
+              <a routerLink="/profile"><i class="feather icon-user m-r-5"></i>View Profile</a>
+            </li>
+            <li class="list-group-item">
+              <a routerLink="/change-password"><i class="feather icon-lock m-r-5"></i>Change Password</a>
+            </li>
+            <li class="list-group-item">
+              <a href="#!" (click)="logout(); $event.preventDefault();">
+                <i class="feather icon-log-out m-r-5"></i>Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           MENU
+           ============================================================ -->
+      <ul class="nav pcoded-inner-navbar">
+
+        <!-- ========================================================
+             MAIN
+             ======================================================== -->
+        <li class="nav-item pcoded-menu-caption">
+          <label>Main</label>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#!"
+             (click)="goToDashboard(); $event.preventDefault();">
+            <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+            <span class="pcoded-mtext">Dashboard</span>
+          </a>
+        </li>
+
+        <!-- ========================================================
+             TASK MANAGEMENT  — visible to everyone
+             ======================================================== -->
+        <li class="nav-item pcoded-menu-caption">
+          <label>Task Management</label>
+        </li>
+
+        <!-- Admin only: All Tasks -->
+        <li class="nav-item" *ngIf="account.isAdmin()">
+          <a class="nav-link" routerLink="/admin/tasks" routerLinkActive="active">
+            <span class="pcoded-micon"><i class="feather icon-list"></i></span>
+            <span class="pcoded-mtext">All Tasks</span>
+          </a>
+        </li>
+
+        <!-- Admin + Manager: Team Tasks -->
+        <li class="nav-item" *ngIf="account.isAdmin() || account.isManager()">
+          <a class="nav-link" routerLink="/manager/tasks" routerLinkActive="active">
+            <span class="pcoded-micon"><i class="feather icon-users"></i></span>
+            <span class="pcoded-mtext">Team Tasks</span>
+          </a>
+        </li>
+
+        <!-- Manager only: Create Task -->
+        <li class="nav-item" *ngIf="account.isManager()">
+          <a class="nav-link" routerLink="/manager/tasks/create" routerLinkActive="active">
+            <span class="pcoded-micon"><i class="feather icon-plus-circle"></i></span>
+            <span class="pcoded-mtext">Create Task</span>
+          </a>
+        </li>
+
+        <!-- Admin + Manager + User: My Tasks -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/user/tasks" routerLinkActive="active">
+            <span class="pcoded-micon"><i class="feather icon-check-square"></i></span>
+            <span class="pcoded-mtext">My Tasks</span>
+          </a>
+        </li>
+
+        <!-- User only: Assigned to Me -->
+        <li class="nav-item" *ngIf="account.isUser()">
+          <a class="nav-link" routerLink="/user/tasks/assigned" routerLinkActive="active">
+            <span class="pcoded-micon"><i class="feather icon-inbox"></i></span>
+            <span class="pcoded-mtext">Assigned to Me</span>
+          </a>
+        </li>
+
+        <!-- Everyone: Task Board -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/tasks/board" routerLinkActive="active">
+            <span class="pcoded-micon"><i class="feather icon-columns"></i></span>
+            <span class="pcoded-mtext">Task Board</span>
+          </a>
+        </li>
+
+        <!-- ========================================================
+             TEAM MANAGEMENT  — Admin + Manager only
+             ======================================================== -->
+        <ng-container *ngIf="account.isAdmin() || account.isManager()">
+
+          <li class="nav-item pcoded-menu-caption">
+            <label>Team Management</label>
+          </li>
+
+          <!-- Teams (parent) — Admin sees All + Create; Manager sees My Team -->
+          <li class="nav-item pcoded-hasmenu">
+            <a href="#!" class="nav-link">
+              <span class="pcoded-micon"><i class="feather icon-grid"></i></span>
+              <span class="pcoded-mtext">Teams</span>
+            </a>
+            <ul class="pcoded-submenu">
+              <li *ngIf="account.isAdmin()">
+                <a routerLink="/admin/teams" routerLinkActive="active">All Teams</a>
+              </li>
+              <li *ngIf="account.isAdmin()">
+                <a routerLink="/admin/teams/create" routerLinkActive="active">Create Team</a>
+              </li>
+              <li *ngIf="account.isManager()">
+                <a routerLink="/manager/team" routerLinkActive="active">My Team</a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Admin only: Members -->
+          <li class="nav-item" *ngIf="account.isAdmin()">
+            <a class="nav-link" routerLink="/admin/members" routerLinkActive="active">
+              <span class="pcoded-micon"><i class="feather icon-user-check"></i></span>
+              <span class="pcoded-mtext">Members</span>
+            </a>
+          </li>
+
+          <!-- Admin + Manager: Assign Task -->
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/manager/assign" routerLinkActive="active">
+              <span class="pcoded-micon"><i class="feather icon-send"></i></span>
+              <span class="pcoded-mtext">Assign Task</span>
+            </a>
+          </li>
+
+        </ng-container>
+
+        <!-- ========================================================
+             ADMINISTRATION  — Admin only
+             ======================================================== -->
+        <ng-container *ngIf="account.isAdmin()">
+
+          <li class="nav-item pcoded-menu-caption">
+            <label>Administration</label>
+          </li>
+
+          <!-- Users (parent) -->
+          <li class="nav-item pcoded-hasmenu">
+            <a href="#!" class="nav-link">
+              <span class="pcoded-micon"><i class="feather icon-user"></i></span>
+              <span class="pcoded-mtext">Users</span>
+            </a>
+            <ul class="pcoded-submenu">
+              <li><a routerLink="/admin/users" routerLinkActive="active">All Users</a></li>
+              <li><a routerLink="/admin/users/create" routerLinkActive="active">Add User</a></li>
+              <li><a routerLink="/admin/roles" routerLinkActive="active">Roles</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/reports" routerLinkActive="active">
+              <span class="pcoded-micon"><i class="feather icon-bar-chart-2"></i></span>
+              <span class="pcoded-mtext">Reports</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/settings" routerLinkActive="active">
+              <span class="pcoded-micon"><i class="feather icon-settings"></i></span>
+              <span class="pcoded-mtext">System Settings</span>
+            </a>
+          </li>
+
+        </ng-container>
+
+        <!-- ========================================================
+             COLLABORATION  — everyone
+             ======================================================== -->
+        <li class="nav-item pcoded-menu-caption">
+          <label>Collaboration</label>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/comments" routerLinkActive="active">
+            <span class="pcoded-micon"><i class="feather icon-message-circle"></i></span>
+            <span class="pcoded-mtext">Comments</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/notifications" routerLinkActive="active">
+            <span class="pcoded-micon"><i class="feather icon-bell"></i></span>
+            <span class="pcoded-mtext">Notifications</span>
+            <span class="badge badge-primary m-l-5">New</span>
+          </a>
+        </li>
+
+        <!-- ========================================================
+             ACCOUNT  — everyone
+             ======================================================== -->
+        <li class="nav-item pcoded-menu-caption">
+          <label>Account</label>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/profile" routerLinkActive="active">
+            <span class="pcoded-micon"><i class="feather icon-user"></i></span>
+            <span class="pcoded-mtext">My Profile</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/change-password" routerLinkActive="active">
+            <span class="pcoded-micon"><i class="feather icon-lock"></i></span>
+            <span class="pcoded-mtext">Change Password</span>
+          </a>
+        </li>
+
+      </ul>
+
+      <!-- ============================================================
+           ADMIN-ONLY SYSTEM STATUS CARD
+           ============================================================ -->
+      <div class="card text-center" *ngIf="account.isAdmin()">
+        <div class="card-block">
+          <i class="feather icon-sunset f-40"></i>
+          <h6 class="mt-3">System Health</h6>
+          <p class="text-muted small mb-2">All services operational</p>
+          <a routerLink="/admin/settings" class="btn btn-primary btn-sm text-white m-0">Review</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</nav>
