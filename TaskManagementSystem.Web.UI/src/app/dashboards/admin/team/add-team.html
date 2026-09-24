@@ -1,0 +1,110 @@
+<!-- [ breadcrumb ] start -->
+<div class="page-header">
+  <div class="page-block">
+    <div class="row align-items-center">
+      <div class="col-md-12">
+        <div class="page-header-title">
+          <h5 class="m-b-10">Add Team</h5>
+        </div>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#!"><i class="feather icon-home"></i></a></li>
+          <li class="breadcrumb-item"><a href="#!">Teams</a></li>
+          <li class="breadcrumb-item"><a href="#!">Add Team</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- [ breadcrumb ] end -->
+
+<div class="row">
+  <div class="col-md-8 col-lg-6 mx-auto">
+    <div class="card">
+      <div class="card-header">
+        <h5>New Team</h5>
+      </div>
+      <div class="card-body">
+
+        <form #teamForm="ngForm" (ngSubmit)="onSubmit(teamForm)" novalidate>
+
+          <!-- Name -->
+          <div class="form-group mb-3">
+            <label class="form-label">Team Name <span class="text-danger">*</span></label>
+            <input type="text"
+                   name="name"
+                   class="form-control"
+                   placeholder="e.g. Backend Team"
+                   required
+                   minlength="2"
+                   maxlength="100"
+                   [(ngModel)]="model.name"
+                   #name="ngModel">
+            <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                 class="text-danger small mt-1">
+              Team name is required (min 2 characters).
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group mb-3">
+            <label class="form-label">Description</label>
+            <textarea name="description"
+                      class="form-control"
+                      rows="3"
+                      maxlength="500"
+                      placeholder="Optional description"
+                      [(ngModel)]="model.description"></textarea>
+          </div>
+
+          <!-- Manager -->
+          <div class="form-group mb-3">
+            <label class="form-label">Manager <span class="text-danger">*</span></label>
+
+            <div *ngIf="loadingManagers" class="text-muted small">
+              Loading managers…
+            </div>
+
+            <select name="managerId"
+                    class="form-control"
+                    required
+                    [(ngModel)]="model.managerId"
+                    #managerId="ngModel"
+                    [disabled]="loadingManagers">
+              <option [ngValue]="0" disabled>Select a manager…</option>
+              <option *ngFor="let m of managers" [ngValue]="m.id">
+                {{ m.firstName }} {{ m.lastName }} ({{ m.email }})
+              </option>
+            </select>
+
+            <div *ngIf="!loadingManagers && managers.length === 0"
+                 class="text-warning small mt-1">
+              No active managers found. Create a user with role "Manager" first.
+            </div>
+
+            <div *ngIf="managerId.invalid && (managerId.dirty || managerId.touched)"
+                 class="text-danger small mt-1">
+              Manager is required.
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="d-flex justify-content-end">
+            <button type="button"
+                    class="btn btn-secondary mr-2"
+                    (click)="cancel()"
+                    [disabled]="isLoading">
+              Cancel
+            </button>
+            <button type="submit"
+                    class="btn btn-primary"
+                    [disabled]="teamForm.invalid || !model.managerId || isLoading">
+              <span *ngIf="!isLoading">Create Team</span>
+              <span *ngIf="isLoading">Creating…</span>
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

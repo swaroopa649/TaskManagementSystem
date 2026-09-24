@@ -1,0 +1,192 @@
+<!-- [ breadcrumb ] start -->
+<div class="page-header">
+  <div class="page-block">
+    <div class="row align-items-center">
+      <div class="col-md-12">
+        <div class="page-header-title">
+          <h5 class="m-b-10">Users</h5>
+        </div>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#!"><i class="feather icon-home"></i></a></li>
+          <li class="breadcrumb-item"><a href="#!">Users</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- [ breadcrumb ] end -->
+
+<!-- [ Filters + Actions ] start -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row align-items-end">
+
+          <div class="col-md-4 mb-2">
+            <label class="form-label small text-muted">Search</label>
+            <input type="text"
+                   class="form-control"
+                   placeholder="Search name, email, phone…"
+                   [(ngModel)]="searchTerm"
+                   (ngModelChange)="applyFilters()">
+          </div>
+
+          <div class="col-md-3 mb-2">
+            <label class="form-label small text-muted">Role</label>
+            <select class="form-control"
+                    [(ngModel)]="filterRole"
+                    (ngModelChange)="applyFilters()">
+              <option value="all">All Roles</option>
+              <option [ngValue]="1">Admin</option>
+              <option [ngValue]="2">Manager</option>
+              <option [ngValue]="3">User</option>
+            </select>
+          </div>
+
+          <div class="col-md-3 mb-2">
+            <label class="form-label small text-muted">Status</label>
+            <select class="form-control"
+                    [(ngModel)]="filterStatus"
+                    (ngModelChange)="applyFilters()">
+              <option value="all">All</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+
+          <div class="col-md-2 mb-2 text-right">
+            <button class="btn btn-secondary mr-2" (click)="clearFilters()">Clear</button>
+            <a class="btn btn-primary" routerLink="/admin/users/create">
+              <i class="feather icon-plus"></i> Add User
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- [ Filters + Actions ] end -->
+
+<!-- [ Table ] start -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="card table-card">
+      <div class="card-header">
+        <h5>All Users ({{ filteredUsers.length }})</h5>
+        <div class="card-header-right">
+          <button class="btn btn-sm btn-light" (click)="loadUsers()" title="Refresh">
+            <i class="feather icon-refresh-cw"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Last Login</th>
+                <th class="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <!-- Loading -->
+              <tr *ngIf="isLoading">
+                <td colspan="7" class="text-center py-4">
+                  <i class="feather icon-loader"></i> Loading…
+                </td>
+              </tr>
+
+              <!-- Empty -->
+              <tr *ngIf="!isLoading && filteredUsers.length === 0">
+                <td colspan="7" class="text-center py-4 text-muted">
+                  No users found.
+                </td>
+              </tr>
+
+              <!-- Rows -->
+              <tr *ngFor="let user of filteredUsers; trackBy: trackByUserId">
+
+                <!-- Name + Avatar -->
+                <td>
+                  <div class="d-inline-block align-middle">
+                    <div class="avatar-circle-sm">
+                      {{ initials(user) }}
+                    </div>
+                    <div class="d-inline-block ml-2">
+                      <h6 class="mb-0">{{ fullName(user) }}</h6>
+                      <small class="text-muted">ID #{{ user.id }}</small>
+                    </div>
+                  </div>
+                </td>
+
+                <td>{{ user.email }}</td>
+
+                <td>{{ user.phone || '—' }}</td>
+
+                <td>
+                  <span class="badge" [ngClass]="getRoleBadgeClass(user.roleCode)">
+                    {{ user.roleName || '—' }}
+                  </span>
+                </td>
+
+                <td>
+                  <span class="badge"
+                        [ngClass]="user.isActive
+                          ? 'badge-light-success'
+                          : 'badge-light-danger'">
+                    {{ user.isActive ? 'Active' : 'Inactive' }}
+                  </span>
+                </td>
+
+                <td>
+                  <span *ngIf="user.lastLogin; else neverLoggedIn">
+                    {{ user.lastLogin | date:'short' }}
+                  </span>
+                  <ng-template #neverLoggedIn>
+                    <span class="text-muted">Never</span>
+                  </ng-template>
+                </td>
+
+                <td class="text-right">
+                  <button class="btn btn-sm btn-icon btn-light mr-1"
+                          title="Edit"
+                          (click)="edit(user.id)">
+                    <i class="feather icon-edit"></i>
+                  </button>
+
+                  <button class="btn btn-sm btn-icon"
+                          [ngClass]="user.isActive
+                            ? 'btn-light text-warning'
+                            : 'btn-light text-success'"
+                          [title]="user.isActive ? 'Deactivate' : 'Activate'"
+                          (click)="toggleStatus(user)">
+                    <i class="feather"
+                       [ngClass]="user.isActive
+                         ? 'icon-user-x'
+                         : 'icon-user-check'"></i>
+                  </button>
+
+                  <button class="btn btn-sm btn-icon btn-light text-danger ml-1"
+                          title="Delete"
+                          (click)="deleteUser(user)">
+                    <i class="feather icon-trash-2"></i>
+                  </button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- [ Table ] end -->
