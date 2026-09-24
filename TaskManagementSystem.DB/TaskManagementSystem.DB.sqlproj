@@ -65,6 +65,11 @@
   <ItemGroup>
     <Build Include="Tables\Role.sql" />
     <Build Include="Tables\User.sql" />
+    <Build Include="Tables\TaskStatus.sql" />
+    <Build Include="Tables\Team.sql" />
+    <Build Include="Tables\TeamMember.sql" />
+    <Build Include="Tables\Task.sql" />
+    <Build Include="Tables\TaskComment.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post-Deployment\Script.PostDeployment.sql" />
