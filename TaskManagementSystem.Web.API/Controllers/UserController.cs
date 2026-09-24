@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TaskManagementSystem.Web.API.Models.DTOs;
 using TaskManagementSystem.Web.API.Services;
+using TaskManagementSystem.Web.API.Utility;
 
 namespace TaskManagementSystem.Web.API.Controllers
 {
     [ApiController]
+    [TMSAuthorizeAttribute]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {

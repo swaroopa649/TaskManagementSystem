@@ -17,5 +17,7 @@ namespace TaskManagementSystem.Web.API.Respository
         Task<User> AddAsync(User user);
 
         Task UpdateAsync(User user);
+
+        Task<User> GetByUserName(string userName);
     }
 }

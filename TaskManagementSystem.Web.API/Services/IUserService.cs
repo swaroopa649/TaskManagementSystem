@@ -15,5 +15,6 @@ namespace TaskManagementSystem.Web.API.Services
         Task<bool> UpdateStatusAsync(long id, bool isActive, long userId);
 
         Task<bool> DeleteAsync(long id, long userId);
+        Task<UserAuthenticationDTO> GetByUserNameAsync(string userName);
     }
 }

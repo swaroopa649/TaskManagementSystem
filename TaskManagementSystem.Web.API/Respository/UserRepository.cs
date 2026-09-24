@@ -53,5 +53,10 @@ namespace TaskManagementSystem.Web.API.Respository
 
             await _context.SaveChangesAsync();
         }
+
+        public async Task<User> GetByUserName(string userName)
+        {
+            return await _context.Users.Where(x => x.Email.ToLower() == userName.ToLower() || x.Phone == userName).FirstOrDefaultAsync();
+        }
     }
 }
