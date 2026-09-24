@@ -1,0 +1,178 @@
+<!-- [ breadcrumb ] start -->
+<div class="page-header">
+  <div class="page-block">
+    <div class="row align-items-center">
+      <div class="col-md-12">
+        <div class="page-header-title">
+          <h5 class="m-b-10">Manager Dashboard</h5>
+        </div>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#!"><i class="feather icon-home"></i></a></li>
+          <li class="breadcrumb-item"><a href="#!">Manager Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- [ breadcrumb ] end -->
+
+<!-- [ Welcome card ] start -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row align-items-center">
+          <div class="col">
+            <h4 class="mb-1">Welcome back, {{ account.getDisplayName() }}</h4>
+            <p class="text-muted mb-0">
+              You are signed in as
+              <span class="badge" [ngClass]="account.getRoleBadgeClass()">
+                {{ account.getRoleDisplayName() }}
+              </span>
+            </p>
+          </div>
+          <div class="col-auto">
+            <div class="avatar-circle"
+                 [style.background]="account.getAvatarColor()">
+              {{ account.getUserInitials() }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- [ Welcome card ] end -->
+
+<!-- [ Manager KPIs ] start -->
+<div class="row">
+  <div class="col-md-6 col-xl-3">
+    <div class="card flat-card widget-primary-card">
+      <div class="row-table">
+        <div class="col-sm-3 card-body">
+          <i class="feather icon-users"></i>
+        </div>
+        <div class="col-sm-9">
+          <h4>128</h4>
+          <h6>Team Members</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-xl-3">
+    <div class="card flat-card widget-purple-card">
+      <div class="row-table">
+        <div class="col-sm-3 card-body">
+          <i class="feather icon-clipboard"></i>
+        </div>
+        <div class="col-sm-9">
+          <h4>42</h4>
+          <h6>Open Tasks</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-xl-3">
+    <div class="card flat-card">
+      <div class="row-table">
+        <div class="col-sm-3 card-body">
+          <i class="feather icon-check-circle text-c-green"></i>
+        </div>
+        <div class="col-sm-9">
+          <h4>315</h4>
+          <h6>Completed</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-xl-3">
+    <div class="card flat-card">
+      <div class="row-table">
+        <div class="col-sm-3 card-body">
+          <i class="feather icon-clock text-c-yellow"></i>
+        </div>
+        <div class="col-sm-9">
+          <h4>7</h4>
+          <h6>Pending Approvals</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- [ Manager KPIs ] end -->
+
+<!-- [ Team Tasks Table ] start -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="card table-card">
+      <div class="card-header">
+        <h5>Team Tasks</h5>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead>
+              <tr>
+                <th>Assignee</th>
+                <th>Task</th>
+                <th>Due Date</th>
+                <th class="text-right">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="d-inline-block align-middle">
+                    <img src="assets/images/user/avatar-2.jpg" alt="user"
+                         class="img-radius wid-40 align-top m-r-15">
+                    <div class="d-inline-block">
+                      <h6>John Deo</h6>
+                      <p class="text-muted m-b-0">Developer</p>
+                    </div>
+                  </div>
+                </td>
+                <td>API Integration</td>
+                <td>Oct 04</td>
+                <td class="text-right"><span class="badge badge-light-primary">In Progress</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-inline-block align-middle">
+                    <img src="assets/images/user/avatar-3.jpg" alt="user"
+                         class="img-radius wid-40 align-top m-r-15">
+                    <div class="d-inline-block">
+                      <h6>Jenifer Vintage</h6>
+                      <p class="text-muted m-b-0">Designer</p>
+                    </div>
+                  </div>
+                </td>
+                <td>Homepage Redesign</td>
+                <td>Oct 08</td>
+                <td class="text-right"><span class="badge badge-light-success">Completed</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-inline-block align-middle">
+                    <img src="assets/images/user/avatar-4.jpg" alt="user"
+                         class="img-radius wid-40 align-top m-r-15">
+                    <div class="d-inline-block">
+                      <h6>William Jem</h6>
+                      <p class="text-muted m-b-0">QA</p>
+                    </div>
+                  </div>
+                </td>
+                <td>Regression Testing</td>
+                <td>Oct 12</td>
+                <td class="text-right"><span class="badge badge-light-danger">Overdue</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- [ Team Tasks Table ] end -->

@@ -34,6 +34,6 @@ namespace TaskManagementSystem.Web.API.Models.Entities
         public virtual User? Manager { get; set; }
 
         public virtual ICollection<TeamMember> TeamMembers { get; set; } = new List<TeamMember>();
-        public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
+        public virtual ICollection<TeamTask> Tasks { get; set; } = new List<TeamTask>();
     }
 }

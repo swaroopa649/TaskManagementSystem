@@ -12,6 +12,17 @@ var builder = WebApplication.CreateBuilder(args);
 // 1. Add Controller Services
 builder.Services.AddControllers();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+
 // 2. Configure Database Context
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseSqlServer(
@@ -120,7 +131,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("AllowAngular");
 // Order is important: UseAuthentication MUST come before UseAuthorization
 app.UseAuthentication();
 app.UseAuthorization();

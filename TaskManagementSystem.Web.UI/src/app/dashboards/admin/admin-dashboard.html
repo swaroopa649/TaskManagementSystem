@@ -1,0 +1,28 @@
+<div class="page-header">
+  <div class="page-block">
+    <div class="row align-items-center">
+      <div class="col-md-12">
+        <div class="page-header-title">
+          <h5 class="m-b-10">Admin Dashboard</h5>
+        </div>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#!"><i class="feather icon-home"></i></a></li>
+          <li class="breadcrumb-item"><a href="#!">Admin Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h4>Welcome, {{ account.getDisplayName() }}</h4>
+        <p class="text-muted">Role: <span class="badge" [ngClass]="account.getRoleBadgeClass()">{{ account.getRoleDisplayName() }}</span></p>
+        <hr>
+        <p>This is the <strong>Administrator</strong> dashboard. You have full access.</p>
+      </div>
+    </div>
+  </div>
+</div>

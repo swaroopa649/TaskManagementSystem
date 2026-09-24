@@ -17,7 +17,7 @@ namespace TaskManagementSystem.Web.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("AuthenticateAsync")]
+        [HttpPost("Authenticate")]
         public async Task<IActionResult> AuthenticateAsync([FromBody] UserLoginDto userLoginDto)
         {
             var response = await _accountService.AuthenticateAsync(userLoginDto);

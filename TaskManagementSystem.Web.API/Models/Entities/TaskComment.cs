@@ -30,7 +30,7 @@ namespace TaskManagementSystem.Web.API.Models.Entities
 
         // Navigation Properties
         [ForeignKey(nameof(TaskId))]
-        public virtual Task? Task { get; set; }
+        public virtual TeamTask? Task { get; set; }
 
         [ForeignKey(nameof(UserId))]
         public virtual User? User { get; set; }

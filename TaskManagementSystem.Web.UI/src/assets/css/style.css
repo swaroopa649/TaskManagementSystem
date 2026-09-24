@@ -21576,7 +21576,7 @@ pre[class*=language-]:before {
     float: unset;
     right: 0;
     top: 0;
-    margin-left: 8%;
+    margin-left: 235px;
     min-height: 100vh;
     transition: all 0.3s ease-in-out;
 }
@@ -30174,3 +30174,24 @@ new-task label input[type=checkbox] {
 }
 
 /**====== user card css end ======**/
+.pcoded-navbar {
+  transition: width 0.25s ease, transform 0.25s ease, left 0.25s ease;
+}
+.pcoded-main-container {
+  transition: margin-left 0.25s ease, width 0.25s ease, padding-left 0.25s ease;
+}
+
+body.sidebar-collapsed .pcoded-navbar {
+  width: 70px;
+}
+
+body.sidebar-collapsed .pcoded-navbar .pcoded-mtext,
+body.sidebar-collapsed .pcoded-navbar .user-details,
+body.sidebar-collapsed .pcoded-navbar .pcoded-menu-caption label,
+body.sidebar-collapsed .pcoded-navbar .card {
+  display: none !important;
+}
+
+body.sidebar-collapsed .pcoded-main-container {
+  margin-left: 70px;
+}
