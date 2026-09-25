@@ -1,0 +1,3 @@
+.form-label { font-weight: 500; font-size: 13px; }
+.alert-light { background: #f8f9fa; }
+.btn[disabled] { opacity: 0.65; cursor: not-allowed; }

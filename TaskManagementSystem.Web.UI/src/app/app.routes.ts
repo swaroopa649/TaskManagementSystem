@@ -18,9 +18,15 @@ import { PlaceholderComponent } from './dashboards/shared/placeholder/placeholde
 // Users feature
 import { UserListComponent } from './dashboards/admin/user/user-list';
 import { AddUserComponent } from './dashboards/admin/user/add-user';
-import { AddTeamComponent } from './dashboards/admin/team/add-team';
+
+// Teams feature
 import { TeamListComponent } from './dashboards/admin/team/team-list';
+import { AddTeamComponent } from './dashboards/admin/team/add-team';
 import { AddTeamMemberComponent } from './dashboards/admin/team/add-team-member';
+import { TaskListComponent } from './dashboards/admin/task/task-list';
+import { AddTaskComponent } from './dashboards/admin/task/add-task';
+import { TaskDetailsComponent } from './dashboards/admin/task/task-details';
+import { AssignTaskComponent } from './dashboards/admin/task/assign-task';
 
 
 export const routes: Routes = [
@@ -62,23 +68,26 @@ export const routes: Routes = [
       { path: 'dashboard',          component: AdminDashboardComponent },
 
       // ----- Task Management -----
-      { path: 'tasks',              component: PlaceholderComponent },
-      { path: 'tasks/create',       component: PlaceholderComponent },
-      { path: 'tasks/edit/:id',     component: PlaceholderComponent },
-      { path: 'tasks/:id',          component: PlaceholderComponent },
+      {
+        path: 'tasks',
+        component: TaskListComponent,
+        data: { scope: 'all', title: 'All Tasks' }
+      },
+      { path: 'tasks/create',       component: AddTaskComponent },
+      { path: 'tasks/edit/:id',     component: AddTaskComponent },
+      { path: 'tasks/:id',          component: TaskDetailsComponent },
 
       // ----- Team Management -----
-      { path: 'teams',                            component: TeamListComponent },
-      { path: 'teams/create',                     component: AddTeamComponent },
-      { path: 'teams/edit/:id',                   component: AddTeamComponent },
-      { path: 'teams/:id/members/add',            component: AddTeamMemberComponent },
-      { path: 'teams/:id',                        component: PlaceholderComponent },
-      { path: 'members',                          component: PlaceholderComponent },
+      { path: 'teams',                     component: TeamListComponent },
+      { path: 'teams/create',              component: AddTeamComponent },
+      { path: 'teams/edit/:id',            component: AddTeamComponent },
+      { path: 'teams/:id/members/add',     component: AddTeamMemberComponent },
+      { path: 'teams/:id',                 component: PlaceholderComponent },
+      { path: 'members',                   component: PlaceholderComponent },
 
       // ----- Users -----
       { path: 'users',              component: UserListComponent },
       { path: 'users/create',       component: AddUserComponent },
-  
 
       // ----- Roles & Reports -----
       { path: 'roles',              component: PlaceholderComponent },
@@ -104,15 +113,21 @@ export const routes: Routes = [
       { path: 'dashboard',          component: ManagerDashboardComponent },
 
       // ----- Task Management -----
-      { path: 'tasks',              component: PlaceholderComponent },
-      { path: 'tasks/create',       component: PlaceholderComponent },
-      { path: 'tasks/edit/:id',     component: PlaceholderComponent },
-      { path: 'tasks/:id',          component: PlaceholderComponent },
+      {
+        path: 'tasks',
+        component: TaskListComponent,
+        data: { scope: 'team', title: 'Team Tasks' }
+      },
+      { path: 'tasks/create',       component: AddTaskComponent },
+      { path: 'tasks/edit/:id',     component: AddTaskComponent },
+      { path: 'tasks/:id',          component: TaskDetailsComponent },
 
       // ----- Team Management -----
-      { path: 'team',                             component: TeamListComponent },
-      { path: 'team/:id/members/add',             component: AddTeamMemberComponent },
-      { path: 'assign',                           component: PlaceholderComponent }
+      { path: 'team',                     component: TeamListComponent },
+      { path: 'team/:id/members/add',     component: AddTeamMemberComponent },
+
+      // ----- Assign Task -----
+      { path: 'assign',             component: AssignTaskComponent }
     ]
   },
 
@@ -131,9 +146,17 @@ export const routes: Routes = [
       { path: 'dashboard',          component: UserDashboardComponent },
 
       // ----- Task Management -----
-      { path: 'tasks',              component: PlaceholderComponent },
-      { path: 'tasks/assigned',     component: PlaceholderComponent },
-      { path: 'tasks/:id',          component: PlaceholderComponent }
+      {
+        path: 'tasks',
+        component: TaskListComponent,
+        data: { scope: 'my', title: 'My Tasks' }
+      },
+      {
+        path: 'tasks/assigned',
+        component: TaskListComponent,
+        data: { scope: 'assigned', title: 'Assigned to Me' }
+      },
+      { path: 'tasks/:id',          component: TaskDetailsComponent }
     ]
   },
 
