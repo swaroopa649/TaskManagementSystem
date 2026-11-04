@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.11.35312.102
+# Visual Studio Version 18
+VisualStudioVersion = 18.10.12224.181 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagementSystem.Web.API", "TaskManagementSystem.Web.API\TaskManagementSystem.Web.API.csproj", "{9D3AEA64-439C-4AC6-BDDA-593D53503656}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TaskManagementSystem.DB", "TaskManagementSystem.DB\TaskManagementSystem.DB.sqlproj", "{A734A5DC-63B9-4C10-8EAB-AEC532F58681}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagementSystem.Web.Tests", "TaskManagementSystem.Web.Tests\TaskManagementSystem.Web.Tests.csproj", "{EAC49E25-A0BD-4FD9-8078-1C97BA294AAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{A734A5DC-63B9-4C10-8EAB-AEC532F58681}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A734A5DC-63B9-4C10-8EAB-AEC532F58681}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A734A5DC-63B9-4C10-8EAB-AEC532F58681}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{EAC49E25-A0BD-4FD9-8078-1C97BA294AAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAC49E25-A0BD-4FD9-8078-1C97BA294AAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAC49E25-A0BD-4FD9-8078-1C97BA294AAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAC49E25-A0BD-4FD9-8078-1C97BA294AAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

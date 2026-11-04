@@ -26,6 +26,11 @@ namespace TaskManagementSystem.Web.API.Controllers
         [HttpGet("{portfolioId:long}")]
         public async Task<ActionResult<PortfolioResponseDto>> GetPortfolioById(long portfolioId)
         {
+            if(portfolioId <= 0)
+            {
+                return BadRequest("Invalid portfolio ID.");
+            }
+
             var portfolio = await _portfolioService.GetByIdPortFolioAsync(portfolioId);
             if (portfolio == null)
             {
