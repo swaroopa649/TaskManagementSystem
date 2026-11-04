@@ -1,0 +1,93 @@
+<!-- [ breadcrumb ] start -->
+<div class="page-header">
+  <div class="page-block">
+    <div class="row align-items-center">
+      <div class="col-md-12">
+        <div class="page-header-title">
+          <h5 class="m-b-10">Assign Task</h5>
+        </div>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#!"><i class="feather icon-home"></i></a></li>
+          <li class="breadcrumb-item"><a href="#!">Assign Task</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- [ breadcrumb ] end -->
+
+<div class="row">
+  <div class="col-md-8 col-lg-6 mx-auto">
+    <div class="card">
+      <div class="card-header">
+        <h5>Assign a task to a user</h5>
+      </div>
+      <div class="card-body">
+
+        <form #assignForm="ngForm" (ngSubmit)="onSubmit(assignForm)" novalidate>
+
+          <!-- Task -->
+          <div class="form-group mb-3">
+            <label class="form-label">Task <span class="text-danger">*</span></label>
+            <select name="taskId"
+                    class="form-control"
+                    required
+                    [(ngModel)]="model.taskId"
+                    #taskId="ngModel"
+                    [disabled]="loadingLookups">
+              <option [ngValue]="0" disabled>Select a task…</option>
+              <option *ngFor="let t of tasks" [ngValue]="t.id">
+                #{{ t.id }} — {{ t.title }}
+                <span *ngIf="t.assigneeName"> (currently: {{ t.assigneeName }})</span>
+              </option>
+            </select>
+          </div>
+
+          <!-- Task preview -->
+          <div class="alert alert-light border small" *ngIf="selectedTask() as t">
+            <strong>{{ t.title }}</strong><br>
+            <span class="text-muted">
+              Current assignee: {{ t.assigneeName || 'Unassigned' }}
+              &nbsp;•&nbsp;
+              Status: {{ t.statusName || '—' }}
+              &nbsp;•&nbsp;
+              Priority: {{ t.priority }}
+            </span>
+          </div>
+
+          <!-- Assign To -->
+          <div class="form-group mb-3">
+            <label class="form-label">Assign To <span class="text-danger">*</span></label>
+            <select name="assigneeId"
+                    class="form-control"
+                    required
+                    [(ngModel)]="model.assigneeId"
+                    #assignedTo="ngModel">
+              <option [ngValue]="0" disabled>Select a user…</option>
+              <option *ngFor="let u of users" [ngValue]="u.id">
+                {{ u.firstName }} {{ u.lastName }} — {{ u.email }}
+                <span *ngIf="u.roleName"> ({{ u.roleName }})</span>
+              </option>
+            </select>
+          </div>
+
+          <!-- Actions -->
+          <div class="d-flex justify-content-end">
+            <button type="button"
+                    class="btn btn-secondary mr-2"
+                    (click)="cancel()"
+                    [disabled]="isLoading">Cancel</button>
+            <button type="submit"
+                    class="btn btn-primary"
+                    [disabled]="assignForm.invalid || !model.taskId || !model.assigneeId || isLoading">
+              <span *ngIf="!isLoading">Assign Task</span>
+              <span *ngIf="isLoading">Assigning…</span>
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

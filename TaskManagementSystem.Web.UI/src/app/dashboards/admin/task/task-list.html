@@ -1,0 +1,188 @@
+<!-- [ breadcrumb ] start -->
+<div class="page-header">
+  <div class="page-block">
+    <div class="row align-items-center">
+      <div class="col-md-12">
+        <div class="page-header-title">
+          <h5 class="m-b-10">{{ title }}</h5>
+        </div>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#!"><i class="feather icon-home"></i></a></li>
+          <li class="breadcrumb-item"><a href="#!">{{ title }}</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- [ breadcrumb ] end -->
+
+<!-- [ Filters ] start -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row align-items-end">
+
+          <div class="col-md-4 mb-2">
+            <label class="form-label small text-muted">Search</label>
+            <input type="text"
+                   class="form-control"
+                   placeholder="Search title, description, assignee…"
+                   [(ngModel)]="searchTerm"
+                   (ngModelChange)="applyFilters()">
+          </div>
+
+          <div class="col-md-3 mb-2">
+            <label class="form-label small text-muted">Priority</label>
+            <select class="form-control"
+                    [(ngModel)]="filterPriority"
+                    (ngModelChange)="applyFilters()">
+              <option value="all">All Priorities</option>
+              <option value="CRITICAL">Critical</option>
+              <option value="HIGH">High</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="LOW">Low</option>
+            </select>
+          </div>
+
+          <div class="col-md-2 mb-2">
+            <label class="form-label small text-muted">Status</label>
+            <select class="form-control"
+                    [(ngModel)]="filterStatus"
+                    (ngModelChange)="applyFilters()">
+              <option value="all">All</option>
+              <option value="open">Open</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+
+          <div class="col-md-3 mb-2 text-right">
+            <button class="btn btn-secondary mr-2" (click)="clearFilters()">Clear</button>
+            <button class="btn btn-primary"
+                    *ngIf="account.isAdmin() || account.isManager()"
+                    (click)="createTask()">
+              <i class="feather icon-plus"></i> Create Task
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- [ Filters ] end -->
+
+<!-- [ Table ] start -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="card table-card">
+      <div class="card-header">
+        <h5>{{ title }} ({{ filteredTasks.length }})</h5>
+        <div class="card-header-right">
+          <button class="btn btn-sm btn-light" (click)="loadTasks()" title="Refresh">
+            <i class="feather icon-refresh-cw"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Assigned To</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Due Date</th>
+                <th class="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngIf="isLoading">
+                <td colspan="6" class="text-center py-4">
+                  <i class="feather icon-loader"></i> Loading…
+                </td>
+              </tr>
+
+              <tr *ngIf="!isLoading && filteredTasks.length === 0">
+                <td colspan="6" class="text-center py-4 text-muted">
+                  No tasks found.
+                </td>
+              </tr>
+
+              <tr *ngFor="let task of filteredTasks; trackBy: trackByTaskId">
+                <td>
+                  <a href="#!" (click)="viewTask(task.id); $event.preventDefault();"
+                     class="font-weight-500 text-dark">
+                    {{ task.title }}
+                  </a>
+                  <div *ngIf="task.description" class="small text-muted text-truncate"
+                       style="max-width:400px;">
+                    {{ task.description }}
+                  </div>
+                </td>
+                <td>
+                  <span *ngIf="task.assigneeName; else unassigned">
+                    {{ task.assigneeName }}
+                  </span>
+                  <ng-template #unassigned>
+                    <span class="text-muted">Unassigned</span>
+                  </ng-template>
+                </td>
+                <td>
+                  <span class="badge"
+                        [ngClass]="isCompleted(task)
+                          ? 'badge-light-success'
+                          : 'badge-light-primary'">
+                    {{ task.statusName || (isCompleted(task) ? 'Completed' : 'Open') }}
+                  </span>
+                </td>
+                <td>
+                  <span class="badge" [ngClass]="priorityBadgeClass(task.priority)">
+                    {{ task.priority }}
+                  </span>
+                </td>
+                <td>
+                  <span *ngIf="task.dueDate; else noDue"
+                        [ngClass]="isOverdue(task) ? 'text-danger fw-500' : ''">
+                    {{ task.dueDate | date:'mediumDate' }}
+                  </span>
+                  <ng-template #noDue>
+                    <span class="text-muted">—</span>
+                  </ng-template>
+                </td>
+                <td class="text-right">
+                  <button class="btn btn-sm btn-icon btn-light mr-1"
+                          title="View"
+                          (click)="viewTask(task.id)">
+                    <i class="feather icon-eye"></i>
+                  </button>
+                  <button class="btn btn-sm btn-icon btn-light mr-1"
+                          *ngIf="account.isAdmin() || account.isManager()"
+                          title="Edit"
+                          (click)="editTask(task.id)">
+                    <i class="feather icon-edit"></i>
+                  </button>
+                  <button class="btn btn-sm btn-icon btn-light mr-1"
+                          *ngIf="account.isAdmin() || account.isManager()"
+                          title="Assign"
+                          (click)="assignTask(task.id)">
+                    <i class="feather icon-user-plus"></i>
+                  </button>
+                  <button class="btn btn-sm btn-icon btn-light text-danger"
+                          *ngIf="account.isAdmin()"
+                          title="Delete"
+                          (click)="deleteTask(task)">
+                    <i class="feather icon-trash-2"></i>
+                  </button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- [ Table ] end -->

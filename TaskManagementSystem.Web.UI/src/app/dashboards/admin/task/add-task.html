@@ -1,0 +1,159 @@
+<!-- [ breadcrumb ] start -->
+<div class="page-header">
+  <div class="page-block">
+    <div class="row align-items-center">
+      <div class="col-md-12">
+        <div class="page-header-title">
+          <h5 class="m-b-10">{{ isEditMode ? 'Edit Task' : 'Create Task' }}</h5>
+        </div>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#!"><i class="feather icon-home"></i></a></li>
+          <li class="breadcrumb-item"><a href="#!">Tasks</a></li>
+          <li class="breadcrumb-item"><a href="#!">{{ isEditMode ? 'Edit' : 'Create' }}</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- [ breadcrumb ] end -->
+
+<div class="row">
+  <div class="col-md-10 col-lg-8 mx-auto">
+    <div class="card">
+      <div class="card-header">
+        <h5>{{ isEditMode ? 'Update Task' : 'New Task' }}</h5>
+      </div>
+      <div class="card-body">
+
+        <form #taskForm="ngForm" (ngSubmit)="onSubmit(taskForm)" novalidate>
+
+          <!-- Title -->
+          <div class="form-group mb-3">
+            <label class="form-label">Title <span class="text-danger">*</span></label>
+            <input type="text"
+                   name="title"
+                   class="form-control"
+                   placeholder="Enter task title"
+                   required
+                   minlength="2"
+                   maxlength="200"
+                   [(ngModel)]="model.title"
+                   #title="ngModel">
+            <div *ngIf="title.invalid && (title.dirty || title.touched)"
+                 class="text-danger small mt-1">
+              Title is required (min 2 characters).
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group mb-3">
+            <label class="form-label">Description</label>
+            <textarea name="description"
+                      class="form-control"
+                      rows="3"
+                      maxlength="2000"
+                      placeholder="Optional description"
+                      [(ngModel)]="model.description"></textarea>
+          </div>
+
+          <div class="row">
+            <!-- Priority -->
+            <div class="col-md-6 form-group mb-3">
+              <label class="form-label">Priority <span class="text-danger">*</span></label>
+              <select name="priority"
+                      class="form-control"
+                      required
+                      [(ngModel)]="model.priority"
+                      #priority="ngModel">
+                <option *ngFor="let p of priorities" [ngValue]="p">{{ p }}</option>
+              </select>
+            </div>
+
+            <!-- Due Date -->
+            <div class="col-md-6 form-group mb-3">
+              <label class="form-label">Due Date</label>
+              <input type="date"
+                     name="dueDate"
+                     class="form-control"
+                     [(ngModel)]="model.dueDate">
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Assign To -->
+            <div class="col-md-6 form-group mb-3">
+              <label class="form-label">Assign To <span class="text-danger">*</span></label>
+              <select name="assigneeId"
+                      class="form-control"
+                      required
+                      [(ngModel)]="model.assigneeId"
+                      #assignedTo="ngModel">
+                <option [ngValue]="0" disabled>Select a user…</option>
+                <option *ngFor="let u of users" [ngValue]="u.id">
+                  {{ u.firstName }} {{ u.lastName }} — {{ u.email }}
+                  <span *ngIf="u.roleName"> ({{ u.roleName }})</span>
+                </option>
+              </select>
+              <div *ngIf="assignedTo.invalid && (assignedTo.dirty || assignedTo.touched)"
+                   class="text-danger small mt-1">
+                Assignee is required.
+              </div>
+            </div>
+
+            <!-- Team (optional) -->
+            <div class="col-md-6 form-group mb-3">
+              <label class="form-label">Team</label>
+              <select name="teamId"
+                      class="form-control"
+                      [(ngModel)]="model.teamId">
+                <option [ngValue]="null">No team</option>
+                <option *ngFor="let t of teams" [ngValue]="t.id">{{ t.name }}</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Status (edit mode only, optional) -->
+          <div class="form-group mb-3" *ngIf="isEditMode && statuses.length > 0">
+            <label class="form-label">Status</label>
+            <select name="statusId"
+                    class="form-control"
+                    [(ngModel)]="model.statusId">
+              <option [ngValue]="null">—</option>
+              <option *ngFor="let s of statuses" [ngValue]="s.id">
+                {{ s.name }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Active (edit mode) -->
+          <div class="custom-control custom-checkbox mb-4" *ngIf="isEditMode">
+            <input type="checkbox"
+                   class="custom-control-input"
+                   id="isActive"
+                   name="isActive"
+                   [(ngModel)]="isActive">
+            <label class="custom-control-label" for="isActive">Active</label>
+          </div>
+
+          <!-- Actions -->
+          <div class="d-flex justify-content-end">
+            <button type="button"
+                    class="btn btn-secondary mr-2"
+                    (click)="cancel()"
+                    [disabled]="isLoading">Cancel</button>
+            <button type="submit"
+                    class="btn btn-primary"
+                    [disabled]="taskForm.invalid || !model.assigneeId || isLoading">
+              <span *ngIf="!isLoading">
+                {{ isEditMode ? 'Update Task' : 'Create Task' }}
+              </span>
+              <span *ngIf="isLoading">Saving…</span>
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

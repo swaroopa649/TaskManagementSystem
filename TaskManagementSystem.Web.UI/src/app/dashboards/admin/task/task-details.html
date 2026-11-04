@@ -1,0 +1,136 @@
+<!-- [ breadcrumb ] start -->
+<div class="page-header">
+  <div class="page-block">
+    <div class="row align-items-center">
+      <div class="col-md-12">
+        <div class="page-header-title">
+          <h5 class="m-b-10">Task Details</h5>
+        </div>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#!"><i class="feather icon-home"></i></a></li>
+          <li class="breadcrumb-item"><a href="#!" (click)="back(); $event.preventDefault();">Tasks</a></li>
+          <li class="breadcrumb-item"><a href="#!">#{{ taskId }}</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- [ breadcrumb ] end -->
+
+<!-- Loading -->
+<div class="card" *ngIf="isLoading">
+  <div class="card-body text-center py-4">
+    <i class="feather icon-loader"></i> Loading task…
+  </div>
+</div>
+
+<!-- Content -->
+<div class="row" *ngIf="!isLoading && task">
+
+  <!-- Left column: task details -->
+  <div class="col-lg-8">
+
+    <!-- Overview -->
+    <div class="card">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="mb-0">{{ task.title }}</h5>
+        <div class="btn-group">
+          <button class="btn btn-sm btn-light" (click)="back()">
+            <i class="feather icon-arrow-left"></i> Back
+          </button>
+          <button class="btn btn-sm btn-primary"
+                  *ngIf="account.isAdmin() || account.isManager()"
+                  (click)="edit()">
+            <i class="feather icon-edit"></i> Edit
+          </button>
+          <button class="btn btn-sm btn-secondary"
+                  *ngIf="account.isAdmin() || account.isManager()"
+                  (click)="assign()">
+            <i class="feather icon-user-plus"></i> Reassign
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <!-- Badges -->
+        <div class="mb-3">
+          <span class="badge"
+                [ngClass]="isCompleted()
+                  ? 'badge-light-success'
+                  : 'badge-light-primary'">
+            {{ task.statusName || (isCompleted() ? 'Completed' : 'Open') }}
+          </span>
+          <span class="badge ml-2" [ngClass]="priorityBadgeClass(task.priority)">
+            {{ task.priority }}
+          </span>
+          <span class="badge ml-2"
+                [ngClass]="isOverdue() ? 'badge-light-danger' : 'badge-light-secondary'">
+            {{ isOverdue() ? 'Overdue' : (task.dueDate ? 'On Track' : 'No Due Date') }}
+          </span>
+        </div>
+
+        <!-- Description -->
+        <h6 class="text-muted small mb-1">Description</h6>
+        <p class="mb-4" *ngIf="task.description; else noDesc">
+          {{ task.description }}
+        </p>
+        <ng-template #noDesc>
+          <p class="text-muted fst-italic mb-4">No description</p>
+        </ng-template>
+
+        <hr>
+
+        <!-- Meta grid -->
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <small class="text-muted d-block">Assigned To</small>
+            <strong>{{ task.assigneeName || 'Unassigned' }}</strong>
+            <div class="small text-muted" *ngIf="task.assigneeName">
+              {{ task.assigneeName }}
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <small class="text-muted d-block">Assigned By</small>
+            <strong>{{ task.createdByName || '—' }}</strong>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <small class="text-muted d-block">Team</small>
+            <strong>{{ task.teamName || '—' }}</strong>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <small class="text-muted d-block">Due Date</small>
+            <strong [ngClass]="isOverdue() ? 'text-danger' : ''">
+              {{ task.dueDate ? (task.dueDate | date:'mediumDate') : '—' }}
+            </strong>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <small class="text-muted d-block">Created</small>
+            <strong>{{ task.createdOn | date:'medium' }}</strong>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <small class="text-muted d-block">Last Modified</small>
+            <strong>{{ task.modifiedOn ? (task.modifiedOn | date:'medium') : '—' }}</strong>
+          </div>
+
+          <div class="col-md-6 mb-3" *ngIf="task.modifiedOn">
+            <small class="text-muted d-block">Completed On</small>
+            <strong class="text-success">{{ task.modifiedOn | date:'medium' }}</strong>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right column: comments -->
+  <div class="col-lg-4">
+    <app-task-comments [taskId]="taskId"></app-task-comments>
+  </div>
+
+</div>
