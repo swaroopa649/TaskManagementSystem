@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using TaskManagementSystem.Web.API.Data;
+using TaskManagementSystem.Web.API.Repository;
 using TaskManagementSystem.Web.API.Respository;
 using TaskManagementSystem.Web.API.Services;
 
@@ -69,6 +70,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<ITaskCommentRepository, TaskCommentRepository>();
+builder.Services.AddScoped<IPortFolioRepository,PortfolioRepository>();
 
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -77,6 +79,7 @@ builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<ITaskCommentService, TaskCommentService>();
 builder.Services.AddScoped<PasswordService>();
+builder.Services.AddScoped<IPortFolioService, PortFolioService>();
 
 // 5. Configure Swagger / OpenAPI with JWT Security
 builder.Services.AddEndpointsApiExplorer();

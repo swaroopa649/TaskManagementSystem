@@ -70,6 +70,7 @@
     <Build Include="Tables\TeamMember.sql" />
     <Build Include="Tables\Task.sql" />
     <Build Include="Tables\TaskComment.sql" />
+    <Build Include="Tables\PortFolio.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post-Deployment\Script.PostDeployment.sql" />

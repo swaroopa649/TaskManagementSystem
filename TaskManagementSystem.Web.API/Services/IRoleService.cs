@@ -7,14 +7,8 @@ namespace TaskManagementSystem.Web.API.Services
         Task<IEnumerable<RoleResponseDto>> GetAllAsync();
         Task<RoleResponseDto?> GetByIdAsync(long id);
         Task<RoleResponseDto> CreateAsync(CreateRoleDto dto, long userId);
-        Task<RoleResponseDto?> UpdateAsync(
-            long id,
-            UpdateRoleDto dto,
-            long userId);
-        Task<bool> UpdateStatusAsync(
-            long id,
-            bool isActive,
-            long userId);
+        Task<RoleResponseDto?> UpdateAsync(long id,UpdateRoleDto dto,long userId);
+        Task<bool> UpdateStatusAsync(long id,bool isActive,long userId);
         Task<bool> DeleteAsync(long id, long userId);
     }
 }
