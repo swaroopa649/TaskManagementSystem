@@ -46,9 +46,8 @@
           <label>Main</label>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#!"
-             [class.active]="isOnDashboard()"
-             (click)="goToDashboard(); $event.preventDefault();">
+          <a class="nav-link" href="#!" [class.active]="isOnDashboard()"
+            (click)="goToDashboard(); $event.preventDefault();">
             <span class="pcoded-micon"><i class="feather icon-home"></i></span>
             <span class="pcoded-mtext">Dashboard</span>
           </a>
@@ -123,13 +122,9 @@
             - Admin: click navigates to /admin/teams AND expands
             - Manager: click only expands (no All Teams page for them)
           -->
-          <li class="nav-item pcoded-hasmenu"
-              [class.active]="isOpen('teams')"
-              [class.pcoded-trigger]="isOpen('teams')">
-            <a class="nav-link"
-               [routerLink]="account.isAdmin() ? '/admin/teams' : null"
-               routerLinkActive="active"
-               (click)="toggleMenu('teams', $event)">
+          <li class="nav-item pcoded-hasmenu" [class.active]="isOpen('teams')" [class.pcoded-trigger]="isOpen('teams')">
+            <a class="nav-link" [routerLink]="account.isAdmin() ? '/admin/teams' : null" routerLinkActive="active"
+              (click)="toggleMenu('teams', $event)">
               <span class="pcoded-micon"><i class="feather icon-grid"></i></span>
               <span class="pcoded-mtext">Teams</span>
             </a>
@@ -177,13 +172,9 @@
             Users (parent)
             - Click navigates to /admin/users AND expands submenu
           -->
-          <li class="nav-item pcoded-hasmenu"
-              [class.active]="isOpen('users')"
-              [class.pcoded-trigger]="isOpen('users')">
-            <a class="nav-link"
-               routerLink="/admin/users"
-               routerLinkActive="active"
-               (click)="toggleMenu('users', $event)">
+          <li class="nav-item pcoded-hasmenu" [class.active]="isOpen('users')" [class.pcoded-trigger]="isOpen('users')">
+            <a class="nav-link" routerLink="/admin/users" routerLinkActive="active"
+              (click)="toggleMenu('users', $event)">
               <span class="pcoded-micon"><i class="feather icon-user"></i></span>
               <span class="pcoded-mtext">Users</span>
             </a>
@@ -193,7 +184,13 @@
               <li><a routerLink="/admin/roles" routerLinkActive="active">Roles</a></li>
             </ul>
           </li>
-
+          <!-- Reports -->
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/portfolio" routerLinkActive="active">
+              <span class="pcoded-micon"><i class="feather icon-bar-chart-2"></i></span>
+              <span class="pcoded-mtext">Portfolios</span>
+            </a>
+          </li>
           <!-- Reports -->
           <li class="nav-item">
             <a class="nav-link" routerLink="/admin/reports" routerLinkActive="active">

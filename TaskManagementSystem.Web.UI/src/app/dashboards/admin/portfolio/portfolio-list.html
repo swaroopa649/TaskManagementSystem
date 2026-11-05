@@ -1,0 +1,128 @@
+<!-- [ breadcrumb ] start -->
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Portfolios</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#!"><i class="feather icon-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="#!">Portfolios</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- [ breadcrumb ] end -->
+
+<!-- [ Filters + Actions ] start -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row align-items-end">
+
+                    <div class="col-md-6 mb-2">
+                        <label class="form-label small text-muted">Search</label>
+                        <input type="text" class="form-control" placeholder="Search name, code, description…">
+                    </div>
+
+
+                    <div class="col-md-6 mb-2 text-right">
+                        <button class="btn btn-secondary mr-2">Clear</button>
+                        <a class="btn btn-primary" routerLink="/admin/portfolio/create">
+                            <i class="feather icon-plus"></i> Add Portfolio
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- [ Filters + Actions ] end -->
+
+
+<!-- [ Table ] start -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card table-card">
+            <div class="card-header">
+                <!-- <h5>All Users ({{ filteredUsers.length }})</h5> -->
+                <div class="card-header-right">
+                    <button class="btn btn-sm btn-light" title="Refresh">
+                        <i class="feather icon-refresh-cw"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th>Description</th>
+                                <th>Owner</th>
+                                <th>Status</th>
+                                <th class="text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngIf="isLoading">
+                                <td colspan="6" class="text-center py-4">
+                                    <i class="feather icon-loader"></i> Loading…
+                                </td>
+                            </tr>
+
+                            <tr *ngIf="!isLoading && portfolios.length === 0">
+                                <td colspan="6" class="text-center py-4 text-muted">
+                                    No portfolios found.
+                                </td>
+                            </tr>
+                            <!-- Rows -->
+                            <tr *ngFor="let portfolio of portfolios; let i = index">
+
+                                <!-- Name + Avatar -->
+                                <td>
+                                    <div class="d-inline-block align-middle">
+                                        <div class="d-inline-block ml-2">
+                                            <h6 class="mb-0">{{ portfolio.name }}</h6>
+                                            <small class="text-muted">ID #{{ portfolio.portfolioId }}</small>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td>{{ portfolio.code }}</td>
+
+                                <td>{{ portfolio.description }}</td>
+
+                                <td>{{ portfolio.ownerId }}</td>
+
+
+                                <td>
+                                    <span class="badge" [ngClass]="portfolio.isActive
+                          ? 'badge-light-success'
+                          : 'badge-light-danger'">
+                                        {{ portfolio.isActive ? 'Active' : 'Inactive' }}
+                                    </span>
+                                </td>
+
+
+                                <td class="text-right">
+                                    <button class="btn btn-sm btn-icon btn-light mr-1" title="Edit"
+                                        (click)="editPortfolio(portfolio.portfolioId)">
+                                        <i class="feather icon-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- [ Table ] end -->
