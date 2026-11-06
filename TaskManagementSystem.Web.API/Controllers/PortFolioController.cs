@@ -46,6 +46,10 @@ namespace TaskManagementSystem.Web.API.Controllers
         {
             try
             {
+                if (portfolioId <= 0)
+                {
+                    return BadRequest("Invalid portfolio ID.");
+                }
                 _logger.LogInformation("Getting portfolio with Id: {PortfolioId}", portfolioId);
 
                 var portfolio = await _portfolioService.GetByIdPortFolioAsync(portfolioId);

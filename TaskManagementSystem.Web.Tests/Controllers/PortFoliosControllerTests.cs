@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -14,16 +15,18 @@ namespace TaskManagementSystem.Web.Tests.Controllers
     public class PortFoliosControllerTests
     {
         private readonly Mock<IPortFolioService> _mockPortfolioService;
+        private readonly Mock<ILogger<PortFoliosController>> _mockLogger;
         private readonly PortFoliosController _controller;
 
         public PortFoliosControllerTests()
         {
             _mockPortfolioService = new Mock<IPortFolioService>();
-            _controller = new PortFoliosController(_mockPortfolioService.Object);
+            _mockLogger = new Mock<ILogger<PortFoliosController>>();
+            _controller = new PortFoliosController(_mockPortfolioService.Object, _mockLogger.Object);
         }
 
         [Fact]
-        public async Task GetAllPortfoliosAsync_RetrinWithPortfolios_WithListOfPortfolios()
+        public async Task GetAllPortfolios_ReturnsOk_WithListOfPortfolios()
         {
             // Arrange
             var mockPortfolios = new List<PortfolioResponseDto>
@@ -32,8 +35,10 @@ namespace TaskManagementSystem.Web.Tests.Controllers
                 new PortfolioResponseDto { PortfolioId = 2, Name = "Portfolio 2" }
             };
             _mockPortfolioService.Setup(service => service.GetAllPortFolioAsync()).ReturnsAsync(mockPortfolios);
+
             // Act
-            var response = await _controller.GetAllPortfoliosAsync();
+            var response = await _controller.GetAllPortfolios();
+
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(response.Result);
             var returnValue = Assert.IsType<List<PortfolioResponseDto>>(okResult.Value);
@@ -41,7 +46,7 @@ namespace TaskManagementSystem.Web.Tests.Controllers
         }
 
         [Fact]
-        public async Task GetAllPortfoliosAsync_ReturnsOkWithEmptyList()
+        public async Task GetAllPortfolios_ReturnsOkWithEmptyList()
         {
             // Arrange
             var portfolios = new List<PortfolioResponseDto>();
@@ -49,7 +54,7 @@ namespace TaskManagementSystem.Web.Tests.Controllers
             _mockPortfolioService.Setup(x => x.GetAllPortFolioAsync()).ReturnsAsync(portfolios);
 
             // Act
-            var result = await _controller.GetAllPortfoliosAsync();
+            var result = await _controller.GetAllPortfolios();
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
@@ -57,10 +62,7 @@ namespace TaskManagementSystem.Web.Tests.Controllers
             var response = Assert.IsAssignableFrom<IEnumerable<PortfolioResponseDto>>(okResult.Value);
 
             Assert.Empty(response);
-
-            Assert.Equal(0, response.Count());
         }
-
 
         [Fact]
         public async Task GetPortfolioById_ReturnsOk_WhenPortfolioExists()
@@ -82,15 +84,12 @@ namespace TaskManagementSystem.Web.Tests.Controllers
                 .ReturnsAsync(portfolio);
 
             // Act
-            var result = await _controller.GetPortfolioById(
-                portfolioId);
+            var result = await _controller.GetPortfolioById(portfolioId);
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(
-                result.Result);
+            var okResult = Assert.IsType<OkObjectResult>(result.Result);
 
-            var response = Assert.IsType<PortfolioResponseDto>(
-                okResult.Value);
+            var response = Assert.IsType<PortfolioResponseDto>(okResult.Value);
 
             Assert.Equal(200, okResult.StatusCode);
             Assert.Equal(portfolioId, response.PortfolioId);
@@ -107,15 +106,14 @@ namespace TaskManagementSystem.Web.Tests.Controllers
 
             _mockPortfolioService
                 .Setup(x => x.GetByIdPortFolioAsync(portfolioId))
-                .ReturnsAsync(
-                    (PortfolioResponseDto?)null);
+                .ReturnsAsync((PortfolioResponseDto?)null);
 
             // Act
-            var result = await _controller.GetPortfolioById(
-                portfolioId);
+            var result = await _controller.GetPortfolioById(portfolioId);
 
             // Assert
-            Assert.IsType<NotFoundResult>(result.Result);
+            var notFoundResult = Assert.IsType<NotFoundObjectResult>(result.Result);
+            Assert.Equal($"Portfolio with Id {portfolioId} not found.", notFoundResult.Value);
 
             _mockPortfolioService.Verify(
                 x => x.GetByIdPortFolioAsync(portfolioId),
