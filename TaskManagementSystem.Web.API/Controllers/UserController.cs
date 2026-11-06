@@ -6,7 +6,7 @@ using TaskManagementSystem.Web.API.Utility;
 namespace TaskManagementSystem.Web.API.Controllers
 {
     [ApiController]
-    [TMSAuthorizeAttribute]
+    //[TMSAuthorizeAttribute]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
