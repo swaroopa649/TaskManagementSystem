@@ -29,6 +29,8 @@ import { TaskDetailsComponent } from './dashboards/admin/task/task-details';
 import { AssignTaskComponent } from './dashboards/admin/task/assign-task';
 import { PortfolioListComponent } from './dashboards/admin/portfolio/portfolio-list';
 
+//Project feature
+import { ProjectListComponent } from './dashboards/admin/Project/project-list';
 
 export const routes: Routes = [
 
@@ -94,9 +96,11 @@ export const routes: Routes = [
       { path: 'roles',              component: PlaceholderComponent },
       { path: 'reports',            component: PlaceholderComponent },
       { path: 'portfolio',          component: PortfolioListComponent },
+      { path: 'project',             component: ProjectListComponent },
 
       // ----- Settings -----
-      { path: 'settings',           component: PlaceholderComponent }
+      { path: 'settings',           component: PlaceholderComponent },
+
     ]
   },
 

@@ -71,6 +71,7 @@
     <Build Include="Tables\Task.sql" />
     <Build Include="Tables\TaskComment.sql" />
     <Build Include="Tables\PortFolio.sql" />
+    <Build Include="Tables\Project.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post-Deployment\Script.PostDeployment.sql" />
