@@ -17,6 +17,7 @@ namespace TaskManagementSystem.Web.API.Data
         public DbSet<TeamMember> TeamMembers { get; set; }
         public DbSet<TaskComment> TaskComments { get; set; }
         public DbSet<Portfolio> Portfolios { get; set; }
+        public DbSet<Project> Projects { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
